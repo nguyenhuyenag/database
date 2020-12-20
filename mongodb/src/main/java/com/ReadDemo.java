@@ -13,7 +13,7 @@ import com.mongodb.client.MongoDatabase;
 
 public class ReadDemo {
 
-	public static void getOne() {
+	public static void read() {
 		Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
 		try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
 			MongoDatabase database = mongoClient.getDatabase("db_name");
@@ -41,3 +41,4 @@ public class ReadDemo {
 	}
 
 }
+

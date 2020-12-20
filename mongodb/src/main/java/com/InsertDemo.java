@@ -49,6 +49,8 @@ public class InsertDemo {
 			doc4.append("dept_name", "OPERATIONS");
 			doc4.append("location", "BOSTON");
 			collection.insertOne(doc4);
+			
+			// collection.insertMany();
 
 			System.out.println("Insert OK!");
 		}
