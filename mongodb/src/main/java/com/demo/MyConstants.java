@@ -1,4 +1,4 @@
-package com;
+package com.demo;
 
 import org.bson.json.JsonWriterSettings;
 

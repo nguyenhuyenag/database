@@ -25,7 +25,7 @@ import static com.mongodb.client.model.Filters.*;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
-public class ConnectMongoDB {
+public class QuickStart {
 
 	public static void listDatabaseNames() {
 		// MongoClients.create("mongodb://host1:27017,host2:27018");

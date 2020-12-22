@@ -1,4 +1,4 @@
-package com;
+package com.demo;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -7,7 +7,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class ConnectMongoDBTest 
+public class QuickStartTest 
     extends TestCase
 {
     /**
@@ -15,7 +15,7 @@ public class ConnectMongoDBTest
      *
      * @param testName name of the test case
      */
-    public ConnectMongoDBTest( String testName )
+    public QuickStartTest( String testName )
     {
         super( testName );
     }
@@ -25,7 +25,7 @@ public class ConnectMongoDBTest
      */
     public static Test suite()
     {
-        return new TestSuite( ConnectMongoDBTest.class );
+        return new TestSuite( QuickStartTest.class );
     }
 
     /**

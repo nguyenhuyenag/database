@@ -1,4 +1,4 @@
-package com;
+package com.demo;
 
 import java.net.UnknownHostException;
 import java.util.List;
@@ -49,7 +49,6 @@ public class MongoUtils {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public static void main(String[] args) throws UnknownHostException {
