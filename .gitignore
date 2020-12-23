@@ -8,3 +8,5 @@ pom.properties
 .classpath
 *.prefs
 *.MF
+*pom.properties
+*.MANIFEST.MF
