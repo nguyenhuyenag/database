@@ -3,6 +3,7 @@ package com;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.gt;
+import static com.mongodb.client.model.Filters.gte;
 import static com.mongodb.client.model.Filters.lte;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
-import static com.mongodb.client.model.Filters.*;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
