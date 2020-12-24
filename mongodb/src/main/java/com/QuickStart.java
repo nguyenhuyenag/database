@@ -19,25 +19,13 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoIterable;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
 public class QuickStart {
 
-	public static void listDatabaseNames() {
-		// MongoClients.create("mongodb://host1:27017,host2:27018");
-		try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");) {
-			MongoIterable<String> itrmg = mongoClient.listDatabaseNames();
-			MongoCursor<String> itr = itrmg.iterator();
-			while (itr.hasNext()) {
-				System.out.println(itr.next());
-			}
-		}
-	}
-
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
 		try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");) {
