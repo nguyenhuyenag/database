@@ -25,9 +25,9 @@ public class UpdateDemo {
 			MongoCollection<Document> collection = database.getCollection("department");
 
 			Bson filter = Filters.eq("_id", 10);
-			Bson updateOperation = Updates.set("location", "TEXAS");
+			Bson update = Updates.set("location", "TEXAS");
 
-			UpdateResult updateResult = collection.updateOne(filter, updateOperation);
+			UpdateResult updateResult = collection.updateOne(filter, update);
 
 			System.out.println(collection.find(filter).first().toJson(prettyPrint));
 
