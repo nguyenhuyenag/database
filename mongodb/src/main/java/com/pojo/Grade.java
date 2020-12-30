@@ -15,8 +15,8 @@ import lombok.Setter;
 public class Grade {
 
 	private ObjectId id;
+	
 	@BsonProperty(value = "student_id")
-
 	private Double studentId;
 
 	@BsonProperty(value = "class_id")
