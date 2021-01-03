@@ -10,10 +10,9 @@ import lombok.Setter;
 @Setter
 public class Grades {
 
-	// private com.restaurant.Date date;
 	private String grade;
 	private int score = 0;
-	
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
