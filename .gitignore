@@ -7,6 +7,4 @@
 .classpath
 *.prefs
 *.MF
-**/target/
-*.MF
-mongodb/target/classes/META-INF/maven/mongodb/mongodb/pom.properties
+**/target/classes
