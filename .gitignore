@@ -1,13 +1,25 @@
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-.classpath
-*.prefs
-*.MF
-*.project
-
 # Folder
-**/target/classes
+**/.mvn/
+**/target/
+**/.settings/
+**/.sts4-cache/
+
+# Package
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.rar
+*.tar.gz
+
+# File
+*.MF
+*.log
+*.cmd
+*.iml
+*.class
+*.prefs
+*.project
+*.classpath
+*.factorypath
