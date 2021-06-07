@@ -39,11 +39,14 @@ public class Customer implements Serializable {
 	@Column(name = "address")
 	private String address;
 
-	@CreationTimestamp
+	// @CreatedDate // spring
+	// @Temporal(TemporalType.TIMESTAMP)
+	@CreationTimestamp // hibernate
 	@Column(name = "created_datetime", updatable = false)
 	private Date createdDatetime;
 
 	@UpdateTimestamp
+	// @LastModifiedDate
 	@Column(name = "updated_datetime")
 	private Date updatedDatetime;
 

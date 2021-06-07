@@ -16,7 +16,7 @@ import com.mongodb.client.MongoDatabase;
 public class InsertDemo {
 
 	public static void insert1() {
-		Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
+		// Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
 		try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
 			MongoDatabase database = mongoClient.getDatabase("db_name");
 			MongoCollection<Document> collection = database.getCollection("department");
@@ -57,7 +57,7 @@ public class InsertDemo {
 	}
 
 	public static void insert2() {
-		Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
+//		Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
 		try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
 			MongoDatabase database = mongoClient.getDatabase("db_name");
 			MongoCollection<Document> collection = database.getCollection("class_room_collection");
@@ -75,6 +75,7 @@ public class InsertDemo {
 	}
 
 	public static void main(String[] args) {
+		Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
 		insert1();
 		// insert2();
 	}

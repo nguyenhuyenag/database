@@ -18,7 +18,7 @@ import com.mongodb.client.result.UpdateResult;
 public class UpdateDemo {
 
 	public static void update() {
-		Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
+//		Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
 		JsonWriterSettings prettyPrint = JsonWriterSettings.builder().indent(true).build();
 		try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
 			MongoDatabase database = mongoClient.getDatabase("db_name");
@@ -38,6 +38,7 @@ public class UpdateDemo {
 	}
 
 	public static void main(String[] args) {
+		Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
 		update();
 	}
 

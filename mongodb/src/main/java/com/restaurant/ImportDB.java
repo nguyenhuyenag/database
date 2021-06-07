@@ -23,9 +23,9 @@ import common.util.FilesUtils;
 import common.util.JsonUtils;
 import common.util.PathUtils;
 
+@SuppressWarnings("unused")
 public class ImportDB {
 
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
 

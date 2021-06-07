@@ -23,9 +23,9 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
+@SuppressWarnings("unused")
 public class QuickStart {
 
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
 		try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");) {

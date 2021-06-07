@@ -18,6 +18,7 @@ public class Restaurant {
 
 	@Id
 	private String id;
+	
 	private String name;
 	private String borough;
 	private String cuisine;
