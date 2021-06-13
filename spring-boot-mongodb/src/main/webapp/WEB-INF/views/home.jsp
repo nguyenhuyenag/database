@@ -53,8 +53,11 @@
         </ol>
         <h3>MongoTemplate</h3>
         <ol>
+            <li><a href="template/find-one?word=horse" target="_blank">Find one</a></li>
+            <li><a href="template/insert" target="_blank">Insert (Post)</a></li>
+            <li><a href="template/delete-one?word=he" target="_blank">Delete one</a></li>
             <li><a href="template/find-all" target="_blank">Find all</a></li>
-            <li><a href="jpa/find-all-sort-by-word" target="_blank">Find all and sort by word</a></li>
+            <li><a href="template/find-all-and-sort" target="_blank">Find all and sort</a></li>
         </ol>
     </div>
     <script>
