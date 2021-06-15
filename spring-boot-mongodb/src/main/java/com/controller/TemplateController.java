@@ -50,11 +50,13 @@ public class TemplateController {
 		return ResponseEntity.ok(Arrays.asList(dto.getWord() + " doesn't existed!"));
 	}
 
-	@GetMapping("delete-one")
-	public ResponseEntity<?> deleteOne(String word) {
-		boolean b = service.deleteOne(word);
-		System.out.println(b);
-		return null;
+	@GetMapping("remove")
+	public ResponseEntity<?> remove(String word) {
+		boolean b = service.remove(word);
+		if (b) {
+			ResponseEntity.ok(Arrays.asList("Delete successful"));
+		}
+		return ResponseEntity.ok(Arrays.asList(word + " not found!"));
 	}
 
 	@GetMapping("find-all")
@@ -67,6 +69,12 @@ public class TemplateController {
 	public ResponseEntity<?> findAllAndSort() {
 		List<?> list = service.findAllAndSort();
 		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
+	
+	@PostMapping("find-and-modify")
+	public ResponseEntity<?> findAndModify(@RequestBody InsertDTO dto) {
+		Vocabulary v = service.findAndModify(dto);
+		return ResponseEntity.ok(v);
 	}
 
 }

@@ -55,14 +55,15 @@
         <ol>
             <li><a href="template/find-one?word=horse" target="_blank">Find one</a></li>
             <li><a href="template/insert" target="_blank">Insert (Post)</a></li>
-            <li><a href="template/delete-one?word=he" target="_blank">Delete one</a></li>
+            <li><a href="template/remove?word=he" target="_blank">Remove</a></li>
             <li><a href="template/find-all" target="_blank">Find all</a></li>
             <li><a href="template/find-all-and-sort" target="_blank">Find all and sort</a></li>
+            <li><a href="template/find-and-modify" target="_blank">Find and modify (POST)</a></li>
         </ol>
     </div>
     <script>
         function submitForm() {
-            let url = encodeURI('jpa/find-with-regex?regex=' + $('#regex').val());
+            let url = 'jpa/find-with-regex?regex=' + encodeURI($('#regex').val());
             var win = window.open(url, '_blank');
         }
     </script>

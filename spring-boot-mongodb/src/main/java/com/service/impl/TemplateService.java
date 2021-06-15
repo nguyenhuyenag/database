@@ -7,16 +7,21 @@ import com.request.InsertDTO;
 
 public interface TemplateService {
 	
-	Vocabulary findOne(String word);
+	boolean isExists(String word);
+
+	boolean remove(String word);
 	
+	Vocabulary findOne(String word);
+
 	Vocabulary insert(InsertDTO dto);
 	
-	boolean deleteOne(String word);
-	
+	// giong voi phuong thuc `abc` nhung tra ve object truoc khi sua doi
+	Vocabulary findAndModify(InsertDTO dto);
+
 	Vocabulary update(InsertDTO dto);
-	
+
 	List<Vocabulary> findAll();
-	
+
 	List<Vocabulary> findAllAndSort();
-	
+
 }

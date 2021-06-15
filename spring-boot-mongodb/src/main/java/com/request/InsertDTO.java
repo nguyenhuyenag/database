@@ -12,5 +12,6 @@ public class InsertDTO {
 	private String word;
 	private String pronounce;
 	private String translate;
+	private int count = 0;
 
 }
