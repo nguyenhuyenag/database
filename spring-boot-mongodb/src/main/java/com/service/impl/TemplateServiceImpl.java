@@ -9,12 +9,18 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.entity.Vocabulary;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.request.InsertDTO;
 
 @Service
@@ -82,6 +88,7 @@ public class TemplateServiceImpl implements TemplateService {
 
 	@Override
 	public List<Vocabulary> findAll() {
+		// mongoTemplate.find(query, entityClass, collectionName)
 		return mongoTemplate.findAll(Vocabulary.class);
 	}
 
@@ -106,12 +113,40 @@ public class TemplateServiceImpl implements TemplateService {
 	public Document insertAny(String jsonString) {
 		Document doc = new Document();
 		JSONObject jsonObject = new JSONObject(jsonString);
+		if (isExists(jsonObject.getString("word"))) {
+			return null;
+		}
 		doc.append("word", jsonObject.get("word"));
 		doc.append("createBy", jsonObject.get("createBy"));
 		doc.append("pronounce", jsonObject.get("pronounce"));
 		doc.append("translate", jsonObject.get("translate"));
 		doc.append("createDate", new Date());
 		return mongoTemplate.insert(doc, "new_word");
+	}
+
+	@Override
+	public boolean collectionExists() {
+		// mongoTemplate.collectionExists("collectionName");
+		return mongoTemplate.collectionExists(Vocabulary.class);
+	}
+
+	@Override
+	public List<Vocabulary> basicQuery() {
+		BasicQuery query = new BasicQuery("{ count : { $gt : 95 } }");
+		return mongoTemplate.find(query, Vocabulary.class);
+	}
+
+	@Override
+	public Document bsonFilter() {
+		try (MongoClient mongoClient = MongoClients.create();) {
+			MongoDatabase database = mongoClient.getDatabase("english");
+			MongoCollection<Document> collection = database.getCollection("vocabulary");
+			FindIterable<Document> cursor = collection.find();
+			for (Document d : cursor) {
+				System.out.println(d.toJson());
+			}
+		}
+		return new Document();
 	}
 
 }

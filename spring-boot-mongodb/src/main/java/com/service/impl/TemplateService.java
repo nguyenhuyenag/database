@@ -13,6 +13,8 @@ public interface TemplateService {
 
 	boolean remove(String word);
 
+	boolean collectionExists();
+
 	Vocabulary insert(InsertDTO dto);
 
 	Vocabulary findOne(String word);
@@ -26,6 +28,12 @@ public interface TemplateService {
 
 	List<Vocabulary> findAllAndSort();
 
+	// BSON & Document
+
+	List<Vocabulary> basicQuery(); // <- MongoDB `raw` query
+
 	Document insertAny(String jsonString);
+
+	Document bsonFilter();
 
 }

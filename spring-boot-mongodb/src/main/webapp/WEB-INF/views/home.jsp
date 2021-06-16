@@ -61,9 +61,11 @@
             <li><a href="template/find-all-and-sort" target="_blank">Find all and sort</a></li>
             <li><a href="template/find-and-modify" target="_blank">Find and modify (POST)</a></li>
         </ol>
-        <h3>Document</h3>
+        <h3>Document & BSON</h3>
         <ol>
-            <li><a href="document/insert-any" target="_blank">Insert any (POST)</a></li>
+            <li><a href="document/insert-any" target="_blank">Insert by Document (POST)</a></li>
+            <li><a href="document/bson-filter" target="_blank">BSON filter ???</a></li>
+            <li><a href="document/basic-query" target="_blank">Basic query</a></li>
         </ol>
     </div>
     <script>
