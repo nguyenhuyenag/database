@@ -1,8 +1,11 @@
 package com.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.bson.Document;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -97,6 +100,18 @@ public class TemplateServiceImpl implements TemplateService {
 		update.set(COUNT, dto.getCount());
 		// findAndModify(query, update, Vocabulary.class);
 		return mongoTemplate.findAndModify(query, update, Vocabulary.class, VOCABULARY);
+	}
+
+	@Override
+	public Document insertAny(String jsonString) {
+		Document doc = new Document();
+		JSONObject jsonObject = new JSONObject(jsonString);
+		doc.append("word", jsonObject.get("word"));
+		doc.append("createBy", jsonObject.get("createBy"));
+		doc.append("pronounce", jsonObject.get("pronounce"));
+		doc.append("translate", jsonObject.get("translate"));
+		doc.append("createDate", new Date());
+		return mongoTemplate.insert(doc, "new_word");
 	}
 
 }

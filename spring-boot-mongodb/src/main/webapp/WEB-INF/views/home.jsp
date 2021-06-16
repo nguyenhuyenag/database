@@ -25,7 +25,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container mb-4">
         <h1>MongoDB</h1>
         <h3>Spring JPA</h3>
         <ol>
@@ -53,12 +53,17 @@
         </ol>
         <h3>MongoTemplate</h3>
         <ol>
-            <li><a href="template/find-one?word=horse" target="_blank">Find one</a></li>
             <li><a href="template/insert" target="_blank">Insert (Post)</a></li>
+            <li><a href="template/upsert" target="_blank">Upsert (POST) ??</a></li>
+            <li><a href="template/find-one?word=he" target="_blank">Find</a></li>
             <li><a href="template/remove?word=he" target="_blank">Remove</a></li>
             <li><a href="template/find-all" target="_blank">Find all</a></li>
             <li><a href="template/find-all-and-sort" target="_blank">Find all and sort</a></li>
             <li><a href="template/find-and-modify" target="_blank">Find and modify (POST)</a></li>
+        </ol>
+        <h3>Document</h3>
+        <ol>
+            <li><a href="document/insert-any" target="_blank">Insert any (POST)</a></li>
         </ol>
     </div>
     <script>

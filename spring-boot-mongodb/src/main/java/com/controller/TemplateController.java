@@ -3,6 +3,7 @@ package com.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,11 +71,19 @@ public class TemplateController {
 		List<?> list = service.findAllAndSort();
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
-	
+
 	@PostMapping("find-and-modify")
 	public ResponseEntity<?> findAndModify(@RequestBody InsertDTO dto) {
 		Vocabulary v = service.findAndModify(dto);
 		return ResponseEntity.ok(v);
+	}
+
+	// Co the dung
+	// @RequestBody Document jsonString
+	@PostMapping("insert-any")
+	public ResponseEntity<?> insertAny(@RequestBody String jsonString) {
+		Document d = service.insertAny(jsonString);
+		return ResponseEntity.ok(d);
 	}
 
 }

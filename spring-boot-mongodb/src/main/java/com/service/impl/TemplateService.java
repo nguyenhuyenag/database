@@ -2,19 +2,21 @@ package com.service.impl;
 
 import java.util.List;
 
+import org.bson.Document;
+
 import com.entity.Vocabulary;
 import com.request.InsertDTO;
 
 public interface TemplateService {
-	
+
 	boolean isExists(String word);
 
 	boolean remove(String word);
-	
-	Vocabulary findOne(String word);
 
 	Vocabulary insert(InsertDTO dto);
-	
+
+	Vocabulary findOne(String word);
+
 	// giong voi phuong thuc `abc` nhung tra ve object truoc khi sua doi
 	Vocabulary findAndModify(InsertDTO dto);
 
@@ -23,5 +25,7 @@ public interface TemplateService {
 	List<Vocabulary> findAll();
 
 	List<Vocabulary> findAllAndSort();
+
+	Document insertAny(String jsonString);
 
 }
