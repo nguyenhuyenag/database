@@ -1,10 +1,15 @@
 package com.service.impl;
 
+import static com.mongodb.client.model.Filters.gt;
+import static com.mongodb.client.model.Filters.lt;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -21,6 +26,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.request.InsertDTO;
 
 @Service
@@ -137,16 +143,33 @@ public class TemplateServiceImpl implements TemplateService {
 	}
 
 	@Override
-	public Document bsonFilter() {
+	public List<Document> bsonFilter() {
+		List<Document> list = new ArrayList<>();
 		try (MongoClient mongoClient = MongoClients.create();) {
 			MongoDatabase database = mongoClient.getDatabase("english");
 			MongoCollection<Document> collection = database.getCollection("vocabulary");
-			FindIterable<Document> cursor = collection.find();
-			for (Document d : cursor) {
-				System.out.println(d.toJson());
-			}
+			
+			/**
+			 * Comparison
+			 */
+			// Bson filter = Filters.eq("word", "able");
+			// Bson filter = Filters.ne("count", 5);
+			// Bson filter = Filters.in("count", 90, 97);
+			// Bson filter = Filters.in("count", Arrays.asList(90, 97));
+			// tương tự cho `Filters.nin()`
+			// Bson filter = Filters.gt("count", 97);
+			// Bson filter = Filters.gte("count", 5);
+			// Bson filter = Filters.lt("count", 5);
+			// Bson filter = Filters.lte("count", 5);
+			
+			/**
+			 * Logical
+			 */
+			Bson filter = Filters.and(gt("i", 10), lt("i", 15));
+			FindIterable<Document> cursor = collection.find(filter);
+			cursor.forEach(list::add);
 		}
-		return new Document();
+		return list;
 	}
 
 }

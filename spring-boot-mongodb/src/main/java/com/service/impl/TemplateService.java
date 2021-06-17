@@ -34,6 +34,6 @@ public interface TemplateService {
 
 	Document insertAny(String jsonString);
 
-	Document bsonFilter();
+	List<Document> bsonFilter();
 
 }

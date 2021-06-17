@@ -63,9 +63,9 @@
         </ol>
         <h3>Document & BSON</h3>
         <ol>
-            <li><a href="document/insert-any" target="_blank">Insert by Document (POST)</a></li>
-            <li><a href="document/bson-filter" target="_blank">BSON filter ???</a></li>
             <li><a href="document/basic-query" target="_blank">Basic query</a></li>
+            <li><a href="document/insert-any" target="_blank">Insert by Document (POST)</a></li>
+            <li><a href="document/bson-filter" target="_blank">BSON filter</a></li>
         </ol>
     </div>
     <script>
