@@ -3,7 +3,6 @@ package com.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.entity.Vocabulary;
 import com.request.InsertDTO;
-import com.service.impl.TemplateService;
+import com.service.TemplateService;
 
 @RestController
 @RequestMapping("template")
@@ -78,12 +77,12 @@ public class TemplateController {
 		return ResponseEntity.ok(v);
 	}
 
-	// Co the dung
-	// @RequestBody Document jsonString
-	@PostMapping("insert-any")
-	public ResponseEntity<?> insertAny(@RequestBody String jsonString) {
-		Document d = service.insertAny(jsonString);
-		return ResponseEntity.ok(d);
-	}
+//	// Co the dung
+//	// @RequestBody Document jsonString
+//	@PostMapping("insert-any")
+//	public ResponseEntity<?> insertAny(@RequestBody String jsonString) {
+//		Document d = service.insertAny(jsonString);
+//		return ResponseEntity.ok(d);
+//	}
 
 }

@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.entity.Vocabulary;
-import com.service.impl.TemplateService;
+import com.service.DocumentService;
 
 @RestController
 @RequestMapping("document")
 public class DocumentController {
 
 	@Autowired
-	private TemplateService service;
+	private DocumentService service;
 
 	/**
 	 * Cach (2): @RequestBody Document jsonString
@@ -45,6 +45,12 @@ public class DocumentController {
 	@GetMapping("bson-filter")
 	public ResponseEntity<?> bsonFilter() {
 		List<Document> list = service.bsonFilter();
+		return ResponseEntity.ok(list);
+	}
+
+	@GetMapping("bson-sort")
+	public ResponseEntity<?> bsonSort() {
+		List<Document> list = service.bsonSort();
 		return ResponseEntity.ok(list);
 	}
 

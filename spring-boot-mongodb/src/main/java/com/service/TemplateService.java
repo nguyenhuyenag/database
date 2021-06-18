@@ -1,8 +1,6 @@
-package com.service.impl;
+package com.service;
 
 import java.util.List;
-
-import org.bson.Document;
 
 import com.entity.Vocabulary;
 import com.request.InsertDTO;
@@ -19,7 +17,7 @@ public interface TemplateService {
 
 	Vocabulary findOne(String word);
 
-	// giong voi phuong thuc `abc` nhung tra ve object truoc khi sua doi
+	// phuong thuc nay tra ve object truoc khi duoc sua doi
 	Vocabulary findAndModify(InsertDTO dto);
 
 	Vocabulary update(InsertDTO dto);
@@ -28,12 +26,11 @@ public interface TemplateService {
 
 	List<Vocabulary> findAllAndSort();
 
-	// BSON & Document
+	// BSON & Document: doc.toJSON() & Document.parse(json)
 
-	List<Vocabulary> basicQuery(); // <- MongoDB `raw` query
-
-	Document insertAny(String jsonString);
-
-	List<Document> bsonFilter();
+//	Document insertAny(String jsonString);
+//	List<Vocabulary> basicQuery(); // <- MongoDB `raw` query
+//	List<Document> bsonFilter();
+//	List<Document> bsonSort();
 
 }

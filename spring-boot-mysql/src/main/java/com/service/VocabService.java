@@ -7,6 +7,10 @@ import com.entity.Vocabulary;
 public interface VocabService {
 
 	List<Vocabulary> findAll();
+	
+	void insert();
+	
+	void findOne();
 
 //	List<Vocabulary> incompleteVocabulary();
 //	
