@@ -26,12 +26,12 @@ public class User {
 
 	@Column
 	private String name;
-	
+
 	// @Column
 	@Transient // Đánh dấu cột này không có trong DB
 	private String company;
 
-	public User(final Integer code, final String name) {
+	public User(final int code, final String name) {
 		this.code = code;
 		this.name = name;
 	}

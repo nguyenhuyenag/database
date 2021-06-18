@@ -26,11 +26,11 @@
 
 # @Transient
 
-	- Sử dụng khi Entity chứa 1 field mà bảng không có, xem trường company trong User.java
+	- Sử dụng khi Entity chứa 1 field mà bảng không có, xem trường `company` trong `User.java`
 	
-		- Unknown column 'user0_.company' in 'field list'
-
 	- Field được đánh dấu @Transient sẽ được JPA bỏ qua, dữ liệu load lên từ bảng sẽ là null và không save dữ liệu xuống bảng
+
+	- Unknown column 'user0_.company' in 'field list'
 
 	- Xem thêm tại: https://stackoverflow.com/q/1281952/7068014
 
@@ -38,7 +38,7 @@
 
 	- Dùng để Hibernate tự động tạo ra giá trị và gán vào một cột khi insert mới một Entity
 
-	// strategy = GenerationType.TABLE	// hoặc SEQUENCE, IDENTITY
+	// strategy = GenerationType.TABLE	// SEQUENCE, IDENTITY
 	
 	- strategy = GenerationType.AUTO: Giá trị được sinh ra bởi SEQUENCE hoặc tự tăng (nếu là IDENTITY)
 	
