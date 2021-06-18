@@ -2,35 +2,34 @@ package com.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.entity.Vocabulary;
-import com.request.InsertDTO;
 
 public interface VocabService {
 
-	Vocabulary insert(InsertDTO dto);
+	Vocabulary getRandomVocab(String flag);
 
-	Vocabulary update(InsertDTO dto);
+	Vocabulary getRandomVocab2();
 
-	List<Vocabulary> findAll();
-
-	Vocabulary findByWord(String word);
-
-	boolean deleteByWord(String word);
-
-	List<Vocabulary> findAllAndSort();
-
-	List<Vocabulary> findByCountBetween(int from, int to);
-
-	// Regex
-	List<Vocabulary> findWithRegex(String regex);
-
-	// JSON
-	Vocabulary findByWordUsingJSON(String word);
-
-	List<Vocabulary> findBetweenByJSON(int from, int to);
+	void increaseCountById(Vocabulary vocab);
 	
-	List<Vocabulary> findAndSortByJSON();
+	List<String> incomplete();
+	
+	Vocabulary search(String word);
 
-	List<Vocabulary> findWithORConditons(String startWith1, String startWith2);
+	List<Vocabulary> incompleteVocabulary();
+	
+	List<Vocabulary> findAll();
+	
+	Page<Vocabulary> pagination(int page, int pageSize);
+	
+	Page<Vocabulary> searchByWord(String word, int page);
+	
+	void deleteByWord(String word);
+	
+	Vocabulary update(Vocabulary v);
+	
+	String pluralNoun(String noun);
 
 }
