@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.entity.Vocabulary;
-import com.service.VocabService;
+import com.service.EntityManagerService;
 
 @RestController
 public class VocabController {
 
 	@Autowired
-	private VocabService service;
+	private EntityManagerService service;
 
-	@GetMapping("find-all")
-	private ResponseEntity<?> findAll() {
-		List<Vocabulary> list = service.findAll();
-		return ResponseEntity.ok(list);
-	}
+//	@GetMapping("find-all")
+//	private ResponseEntity<?> findAll() {
+//		List<Vocabulary> list = service.findAll();
+//		return ResponseEntity.ok(list);
+//	}
 
 }

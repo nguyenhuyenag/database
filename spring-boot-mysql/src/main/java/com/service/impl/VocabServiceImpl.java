@@ -1,244 +1,55 @@
 package com.service.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.entity.Vocabulary;
+import com.repository.VocabRepository;
 import com.service.VocabService;
 
 @Service
 public class VocabServiceImpl implements VocabService {
 
-	@PersistenceContext // or even @Autowired
+	@Autowired
+	private VocabRepository repository;
+
+	@Autowired
 	private EntityManager entityManager;
 
 	@Override
-	public List<Vocabulary> findAll() {
-		String sql = "select * from vocab;";
-		Query query = entityManager.createNativeQuery(sql);
-		return query.getResultList();
+	public void CollectionParam() {
+		List<String> words = Arrays.asList("bake", "concept", "theater");
+		List<Vocabulary> list = repository.findVocabByWordList(words);
+		list.forEach(System.out::println);
 	}
 
 	@Override
-	@Transactional // Spring transaction
-	public void insert() {
-		Vocabulary v = new Vocabulary("carry", "'ke-ri", "mang theo");
-		entityManager.persist(v);
-		System.out.println(v.toString());
-	}
-
-	@Override
-	public void findOne() {
-		String sql = "select v from Vocabulary v where v.word = :param_word";
-		TypedQuery<Vocabulary> typedQuery = entityManager.createQuery(sql, Vocabulary.class);
-	    typedQuery.setParameter("param_word", "alive");
-	    Vocabulary v = typedQuery.getSingleResult();
-	    // List<Vocabulary> list = typedQuery.getResultList();
-		if (v != null) {
-			System.out.println(v);
+	public void findUserByEmails() {
+		Set<String> emails = new HashSet<>(Arrays.asList("ac", "an", "ar"));
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Vocabulary> query = cb.createQuery(Vocabulary.class);
+		Root<Vocabulary> user = query.from(Vocabulary.class);
+		Path<String> emailPath = user.get("word");
+		List<Predicate> predicates = new ArrayList<>();
+		for (String email : emails) {
+			predicates.add(cb.like(emailPath, email));
 		}
+		query.select(user).where(cb.or(predicates.toArray(new Predicate[predicates.size()])));
+		List<Vocabulary> list = entityManager.createQuery(query).getResultList();
+		list.forEach(t -> System.out.println(t));
 	}
-
-	// @Autowired
-	// private VocabRepository repository;
-
-	// private final int N = 4;
-
-	// private static final int SIZE = 20;
-
-	// private Set<String> ignoreWords = new HashSet<>();
-
-//	/**
-//	 * Random ngẫu nhiên trong List: [min, max + 1]
-//	 */
-//	private Vocabulary randomFromList(List<Vocabulary> list) {
-//		int index = ThreadLocalRandom.current().nextInt(0, (list.size() - 1) + 1);
-//		return list.get(index);
-//	}
-//
-//	/**
-//	 * Kiểm tra không trùng với từ phía trước và tăng biến count
-//	 */
-//	private Vocabulary handle(Vocabulary vocab) {
-//		String word = vocab.getWord();
-//		if (!ignoreWords.contains(word)) { // check exits
-//			ignoreWords.add(word);
-//			if (StringUtils.isNotEmpty(vocab.getPronounce())) {
-//				increaseCountById(vocab); // increate count
-//				return vocab;
-//			}
-//		}
-//		return null;
-//	}
-//
-//	@Override
-//	public Vocabulary getRandomVocab(String flag) {
-//		while (true) {
-//			Vocabulary vocab = repository.getRandomWord();
-//			if (vocab != null) {
-//				vocab = handle(vocab);
-//				if (vocab != null) {
-//					return vocab;
-//				}
-//			}
-//		}
-//	}
-//
-//	@Override
-//	public Vocabulary getRandomVocab2() {
-//		while (true) {
-//			Vocabulary vocab = repository.getRandomWord();
-//			List<Vocabulary> list = repository.getListVocabLimitByCount(vocab.getCount(), N);
-//			list.add(vocab);
-//			vocab = randomFromList(list);
-//			vocab = handle(vocab);
-//			if (vocab != null) {
-//				return vocab;
-//			}
-//		}
-//	}
-//
-//	@Transactional
-//	@Override
-//	public void increaseCountById(Vocabulary vocab) {
-//		vocab.setCount(vocab.getCount() + 1);
-//		repository.save(vocab);
-//	}
-//
-//	@Override
-//	public List<String> incomplete() {
-//		return repository.incomplete();
-//	}
-//
-//	@Override
-//	public Vocabulary search(String word) {
-//		Vocabulary v = repository.findByWord(word);
-//		// Vocabulary v = repository.advanceSearchByWord(word);
-//		return v != null ? v : null;
-//	}
-//
-//	@Override
-//	public List<Vocabulary> incompleteVocabulary() {
-//		return repository.incompleteVocabulary();
-//	}
-//
-//
-//	@Override
-//	public Page<Vocabulary> pagination(int page, int pageSize) {
-//		PageRequest pageRequest = PageRequest.of(Math.max(0, page - 1), pageSize);
-//		Page<Vocabulary> listPage = repository.findAll(pageRequest);
-//		return listPage;
-//	}
-//
-//	@Override
-//	public void deleteByWord(String word) {
-//		repository.deleteByWord(word);
-//	}
-//
-//	@Override
-//	public Vocabulary update(Vocabulary v) {
-//		Vocabulary entity = repository.findByWord(v.getWord());
-//		entity.setPronounce(v.getPronounce());
-//		entity.setTranslate(v.getTranslate());
-//		return repository.save(entity);
-//	}
-//
-//	@Override
-//	public String pluralNoun(String noun) {
-//		StringBuilder sb = new StringBuilder(noun);
-//
-//		// special 1
-//		List<String> special1 = Arrays.asList("sheep", "aircraft", "deer", "moose", "fish", "dozen", "hundred");
-//		if (special1.contains(noun.toLowerCase())) {
-//			return noun;
-//		}
-//
-//		// irregular nouns
-//		Map<String, String> map = new HashMap<>();
-//		map.put("man", "men");
-//		map.put("woman", "women");
-//		map.put("person", "people");
-//		map.put("child", "children");
-//		map.put("mouse", "mice");
-//		map.put("foot", "feet");
-//		map.put("tooth", "teeth");
-//		map.put("brother", "brethren");
-//		map.put("thesis", "theses");
-//		map.put("die", "dice");
-//		map.put("focus", "foci");
-//		map.put("ox", "oxen");
-//		map.put("cactus", "cacti");
-//		map.put("goose", "geese");
-//		map.put("fungus", "fungi");
-//		map.put("nucleus", "nuclei");
-//		map.put("louse", "lice");
-//		map.put("syllabus", "syllabi/syllabuses");
-//		map.put("analysis", "analyses");
-//		map.put("datum", "data");
-//		if (map.get(noun.toLowerCase()) != null) {
-//			return map.get(noun.toLowerCase());
-//		}
-//		
-//		// rule 1
-//		String[] rule1 = { "sh", "ch", "x", "z", "s" };
-//		for (String s : rule1) {
-//			if (noun.endsWith(s)) {
-//				return noun + "es";
-//			}
-//		}
-//
-//		// rule 2: vowel + 'y'
-//		// vowel = "aeoui";
-//		if (noun.endsWith("y")) {
-//			// (2.1)
-//			String[] rule2 = { "ay", "ey", "oy", "uy", "iy" };
-//			for (String s : rule2) {
-//				if (noun.endsWith(s)) {
-//					return noun + "s";
-//				}
-//			}
-//			// (2.2): change 'y' -> 'i' and + es
-//			sb.setCharAt(sb.length() - 1, 'i');
-//			return sb.toString() + "es";
-//		}
-//
-//		// rule 3: 'f' & 'fe'
-//		if (noun.endsWith("f")) {
-//			sb.deleteCharAt(sb.length() - 1);
-//			return sb.toString() + "ves";
-//		}
-//		if (noun.endsWith("fe")) {
-//			sb.delete(sb.length() - 2, sb.length());
-//			return sb.toString() + "ves";
-//		}
-//
-//		// rule 4
-//		if (noun.endsWith("o")) {
-//			// vowel + 'o'
-//			String[] rule2 = { "ao", "eo", "oo", "uo", "io" };
-//			for (String s : rule2) {
-//				if (noun.endsWith(s)) {
-//					return noun + "s";
-//				}
-//			}
-//			//
-//			return noun + "es";
-//		}
-//
-//		return noun + "s";
-//	}
-//
-//	@Override
-//	public Page<Vocabulary> searchByWord(String word, int page) {
-//		Pageable pageable = PageRequest.of(page, 5);
-//		return repository.searchByWord(word, pageable);
-//	}
 
 }

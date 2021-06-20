@@ -1,5 +1,7 @@
 package com.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +22,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "vocab")
-public class Vocabulary {
+public class Vocabulary implements Serializable {
+
+	private static final long serialVersionUID = 5357304115478804852L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
