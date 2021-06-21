@@ -1,7 +1,9 @@
 package com.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +12,8 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,8 +38,14 @@ public class Vocabulary implements Serializable {
 	private String word;
 	private String pronounce;
 	private String translate;
-
 	private int count = 0;
+
+	@CreatedDate
+	@Column(name = "created_date", updatable = false)
+	private Date created_date;
+
+	@LastModifiedDate
+	private Date lastModified;
 
 	public Vocabulary(String word, String pronounce, String translate) {
 		this.word = word;

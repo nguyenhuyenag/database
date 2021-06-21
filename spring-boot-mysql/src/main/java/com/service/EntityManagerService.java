@@ -12,5 +12,7 @@ public interface EntityManagerService {
 	void findAllByTypedQuery();
 
 	void insert();
+	
+	// void sortByCriteriaQuery();
 
 }

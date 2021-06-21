@@ -16,16 +16,13 @@ import com.entity.Vocabulary;
 @Transactional
 public interface VocabRepository extends JpaRepository<Vocabulary, Integer> {
 
-	// @Modifying
-	// @Query(value = "delete from vocab t where t.word = :word", nativeQuery = true)
-	// void deleteByWord(@Param("word") String word);
-
-	@Query(value = "SELECT v FROM Vocabulary v WHERE v.word IN :words")
+	// JPQL
+	@Query(value = "SELECT t FROM Vocabulary t WHERE t.word IN :words")
 	List<Vocabulary> findVocabByWordList(@Param("words") List<String> words);
-	
+
+	// SQL
 	@Modifying
-	@Query(value = "insert into Users (name, age, email, status) values (:name, :age, :email, :status)", nativeQuery = true)
-	void insertUser(@Param("name") String name, @Param("age") Integer age, 
-	  @Param("status") Integer status, @Param("email") String email);
+	@Query(value = "update Vocabulary t set t.lastModified = now() where t.word = :word")
+	void updateLastModified(String word);
 
 }
