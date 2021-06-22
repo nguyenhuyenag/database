@@ -7,9 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.repository.VocabRepository;
+import com.repository.PersonRepository;
 import com.service.EntityManagerService;
 import com.service.ProcedureService;
+import com.service.QueryDSLService;
 import com.service.VocabService;
 
 @SpringBootApplication
@@ -26,10 +27,13 @@ public class Application implements CommandLineRunner {
 	VocabService vbService;
 
 	@Autowired
-	VocabRepository repository;
+	PersonRepository repository;
 
 	@Autowired
 	ProcedureService proceduce;
+	
+	@Autowired
+	QueryDSLService queryDSLService;
 
 	Logger logger = LoggerFactory.getLogger(Application.class);
 
@@ -44,7 +48,11 @@ public class Application implements CommandLineRunner {
 		// epository.findAll().stream().limit(10).forEach(t->System.out.println(t));
 		// repository.updateLastModified("actual");
 		// proceduce.callProcedureByQuery().forEach(t -> System.out.println(t));
-		proceduce.callProcedureWithParam();
+		// proceduce.callProcedureWithParam();
+		// queryDSLService.findAll();
+		// queryDSLService.findOne();
+		// queryDSLService.forAndCondition();
+		queryDSLService.delete();
 	}
 
 }
