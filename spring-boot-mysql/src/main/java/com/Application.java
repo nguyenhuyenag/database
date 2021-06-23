@@ -11,6 +11,7 @@ import com.repository.PersonRepository;
 import com.service.EntityManagerService;
 import com.service.ProcedureService;
 import com.service.QueryDSLService;
+import com.service.TransactionSevice;
 import com.service.VocabService;
 
 @SpringBootApplication
@@ -34,6 +35,9 @@ public class Application implements CommandLineRunner {
 	
 	@Autowired
 	QueryDSLService queryDSLService;
+	
+	@Autowired
+	TransactionSevice transactionSevice;
 
 	Logger logger = LoggerFactory.getLogger(Application.class);
 
@@ -52,7 +56,8 @@ public class Application implements CommandLineRunner {
 		// queryDSLService.findAll();
 		// queryDSLService.findOne();
 		// queryDSLService.forAndCondition();
-		queryDSLService.delete();
+		// queryDSLService.delete();
+		transactionSevice.testTransaction();
 	}
 
 }
