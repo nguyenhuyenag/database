@@ -149,13 +149,30 @@
 
 	- Khi đối tượng bị `cascade` trong persistence context thì đối tượng tham chiếu tới nó cũng bị ảnh hưởng
 	
-	- Ví dụ khi xóa country thì các province liên quan cũng bị xóa, tương tự khi insert, ...
-	
 	- Dùng trong mối quan hệ 1 - nhiều
 	
-	- Cú pháp
+	- Cú pháp: cascade = {CascadeType.REMOVE, CascadeType.PERSIST}
 	
-		cascade = {CascadeType.REMOVE, CascadeType.PERSIST}
+	- Ví dụ: company (1)	-> 		employee (n) 
+	
+		public class Company {
+			//...
+			@OneToMany(cascade = {CascadeType.REMOVE}, orphanRemoval = true, ...)
+			private Set<Employee> listEmployee = new HashSet<>();
+		}
+		
+		+ Với cascade = CascadeType.REMOVE, khi xóa đối tượng company thì tất cả các đối tượng employee liên quan cũng bị xóa theo (nó chỉ tác động tới các employee khi object company bị remove).
+    
+		+ Với thuộc tính orphanRemoval = true thì khi remove 1 đối tượng employee khỏi listEmployee thì nó sẽ bị xóa khỏi database (nó chỉ tác động tới các employee khi listEmployee thay đổi).
+		
+		+ Mặc định orphanRemoval = false
+		
+		+ cascade = {CascadeType.ALL} sẽ bao gồm cascade = {CascadeType.REMOVE}
+		
+		+ Nếu muốn xóa tất cả các đối tượng Employee bên trong Company với orphanRemoval = true :
+			- Ta remove tất cả các object Employee trong listEmployee bằng method clear() (company.getListEmployee().clear();)
+			
+			- Không được set null hoặc set new HashSet() (  company.setListEmployee(new HashSet<>()); or company.setListEmployee(null);)
 	
 	- Các loại cascade
 	
@@ -228,5 +245,47 @@
 	
 	@PostRemove: Thực thi sau khi entity bị xóa
 
-# repositoty.findById(12).orElseThrow(() -> new EntityNotFoundException());
+# Locking trong Hibernate
 
+	- Optimistic lock: Đảm bảo nhiều giao dịch (transaction) có thể hoàn thành mà không ảnh hưởng tới nhau, các transaction tiến hành mà không cần khóa các tài nguyên lại.
+	
+	Trước khi commit, mỗi transaction sẽ kiểm tra lại xem dữ liệu của nó có bị transaction khác làm thay đổi không, nếu có thì sẽ quay trở lại trạng thái lúc đầu (rollback).
+	
+	- Pessimistic lock: Khi bắt đầu một transaction, pessimistic lock sẽ khóa dữ liệu mà nó sử dụng lại và chỉ mở khóa khi nó đã sử dụng xong.
+	
+	- Khi một entity bị khoá với pessimistic lock, nó sẽ có 2 loại khoá như sau:
+
+		+ shared lock: Chỉ có thể đọc nhưng không thể xoá, cập nhật dữ liệu.
+		+ exclusive lock: Có thể xoá hoặc cập nhật dữ liệu .
+
+	- Lock Modes
+	
+		+ PESSIMISTIC_READ (shared lock): Chỉ có thể đọc dữ liệu, dùng khi chỉ muốn đọc dữ liệu mà không bị làm phiền bởi các transaction khác.
+		
+		+ PESSIMISTIC_WRITE (exclusive lock): Có toàn quyền đọc, xoá, chỉnh sửa dữ liệu và ngăn không cho các transaction khác đọc, xoá, và cập nhật dữ liệu lên chúng.
+		
+		+ PESSIMISTIC_FORCE_INCREMENT: Giống với PESSIMISTIC_WRITE, ngoài ra nó còn tăng giá trị của thuộc tính @Version trong entity. Một entity có thuộc tính @Version thì nên sử dụng PESSIMISTIC_FORCE_INCREMENT thay vì PESSIMISTIC_WRITE.
+		
+		+ Tất cả chúng đều là static members của lớp LockModeType cho phép các transaction có được database lock. Tất cả đều được giữ lại cho đến khi transaction commits hoặc rolls back.
+
+	- Ví dụ
+	
+		Query query = entityManager.createQuery("from...");
+		query.setLockMode(LockModeType.PESSIMISTIC_WRITE);
+		
+		Student student = entityManager.find(Student.class, id);
+		entityManager.lock(student, LockModeType.OPTIMISTIC);
+		
+		Student student = entityManager.find(Student.class, id);
+		entityManager.refresh(student, LockModeType.READ);
+		
+	- Spring boot Transaction Locks
+
+		@Lock(LockModeType.OPTIMISTIC_FORCE_INCREMENT)
+		@Query("SELECT c FROM Customer c WHERE c.orgId = ?1")
+		public List<Customer> fetchCustomersByOrgId(Long orgId);
+		
+		@Lock(LockModeType.PESSIMISTIC_READ)
+		public Optional<Customer> findById(Long customerId);
+	
+	- Xem Hibernate annotation @Version (Hibernate Locking Version)
