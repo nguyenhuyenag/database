@@ -1,5 +1,6 @@
 package com.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,17 +22,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "trans")
-public class Trans {
+public class TransientEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Transient
 	private String no;
-	
+
+	@Column(length = 15)
 	private String name;
-	
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);

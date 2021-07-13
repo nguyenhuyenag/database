@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.entity.Trans;
+import com.entity.TransientEntity;
 import com.repository.TransRepository;
 
 @SpringBootApplication
@@ -26,9 +26,9 @@ public class Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// repository.findAll().forEach(t -> System.out.println(t));
-		Optional<Trans> opt = repository.findById(5);
+		Optional<TransientEntity> opt = repository.findById(5);
 		if (opt.isPresent()) {
-			Trans entity = opt.get();
+			TransientEntity entity = opt.get();
 			System.out.println(entity);
 			entity.setNo("0006");
 			entity.setName(RandomStringUtils.randomAlphabetic(5).toUpperCase());
